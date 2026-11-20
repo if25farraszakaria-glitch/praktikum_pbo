@@ -1,36 +1,66 @@
 <?php
 
-class produk {
+namespace Pbo\Marketplace;
 
-//property
+class Produk {
 
-public string $kode; //primary key auto icerment
-public string $nama;
-public int $harga;
-public int $stok;
+    //property
+    private string $kode;
+    private string $nama;
+    private int $harga;
+    private int $stok;
+    
+    //constant
+    public const PAJAK = 0.11;
 
-//constant
-public const PAJAK = 0.11;
+    public function __construct() {
 
+    }
 
+    //setter
+    public function setKode($kode){
+        $this->kode = $kode;
+        return $this;
+    }
+    public function setNama($nama){
+        $this->nama = $nama;
+        return $this;
+    }
+    public function setHarga($harga){
+        if($harga <= 0) {
+            echo "harga tidak boleh 0";
+            exit();
+        }
+        $this->harga = $harga;
+        return $this;
+    }
+    public function setStok($stok){
+        if($stok <= 0) {
+            echo "stok tidak boleh 0";
+            exit();
+        }
+         $this->stok = $stok;
+        return $this;
+    }
+
+    // getter
+public function getKode() {
+    return $this->kode;
+    }
+public function getNama() {
+    return $this->nama;
+    }
+public function getHarga() {
+    return $this->harga;
+    }
+public function getStok() {
+    return $this->stok;
+    }
+
+    public function pajak() {
+        return self::PAJAK * 100; //11
+    }
+    public function total() {
+        return $this->harga + ($this->harga * self::PAJAK);
+    }
 }
-
-//object 
-$produk = new produk();
-
-$produk->kode = 'P0001';
-$produk->nama = 'Laptop';
-$produk->harga = '10000000';
-$produk->stok = 5;
-$pajak        = Produk :: PAJAK * 100;
-$jumlah_pajak = $produk->harga *
-produk ::PAJAK;
-$total       = $produk->harga + 
-$jumlah_pajak;
-
-echo "produk : " . $produk->nama;
-echo "<br>harga  : " . $produk->harga;
-echo "<br>Stok   : " . $produk->stok;
-echo "<br>Pajak  : " . $pajak;
-echo "total harga setelah pajak adalah " . $total;
-
